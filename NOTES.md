@@ -61,3 +61,7 @@ $ npm run start:debug
 
 `consumer-app/src/main.ts`
 `dynamic-module/src/config/config.service.ts`
+
+## Fix: Cannot read file tsconfig.json, when it's in subfolders and not in root
+
+- [Parsing error: Cannot read file tsconfig.json, when it&#39;s in subfolders and not in root  · Issue #1170 · microsoft/vscode-eslint](https://github.com/microsoft/vscode-eslint/issues/1170)
