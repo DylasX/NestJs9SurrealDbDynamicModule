@@ -1,0 +1,10 @@
+@host = localhost
+@port = 3000
+@uri = http://{{host}}:{{port}}
+@contentType = application/json
+
+### getHello
+// @name getHello
+
+GET {{uri}}
+Content-Type: application/json
