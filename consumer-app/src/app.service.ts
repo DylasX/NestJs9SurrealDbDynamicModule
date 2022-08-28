@@ -9,11 +9,11 @@ export class AppService {
     this.helloMessage = surrealDbService.get('HELLO_MESSAGE');
   }
 
-  getHello(): string {
-    return this.helloMessage;
+  getHello(): { message: string } {
+    return { message: this.helloMessage };
   }
 
-  postCreate(createDto: CreateDto): any {    
+  postCreate(createDto: CreateDto): any {
     return this.surrealDbService.create('person', createDto);
   }
 

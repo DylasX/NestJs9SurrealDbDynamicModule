@@ -35,6 +35,7 @@ export class SurrealDbService {
     return this.envConfig[key];
   }
 
+  // TODO: use generic here, ex pass type, or model from client
   async create(thing: string, data: any): Promise<any> {
     return this.db.create(thing, data);
   }

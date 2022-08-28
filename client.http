@@ -27,3 +27,19 @@ Content-Type: application/json
     "marketing": true
   }
 }
+
+### postCreateModel
+// @name postCreateModel
+
+POST {{uri}}/person
+Content-Type: application/json
+
+{
+  "id": "00001",
+  "title": "Founder & CEO",
+  "name": {
+    "first": "Tobie",
+    "last": "Morgan Hitchcock"
+  },
+  "marketing": true
+}
