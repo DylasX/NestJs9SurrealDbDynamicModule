@@ -8,3 +8,22 @@
 
 GET {{uri}}
 Content-Type: application/json
+
+### postCreate
+// @name postCreate
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "thing": "person",
+  "data": {
+    "identifier": "00001",
+    "title": "Founder & CEO",
+    "name": {
+      "first": "Tobie",
+      "last": "Morgan Hitchcock"
+    },
+    "marketing": true
+  }
+}

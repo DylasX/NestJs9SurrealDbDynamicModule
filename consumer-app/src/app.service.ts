@@ -1,15 +1,20 @@
-import { ConfigService } from '@koakh/nestjs9-dynamic-module';
+import { CreateDto, SurrealDbService } from '@koakh/nestjs-surrealdb-driver';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
   private helloMessage: string;
 
-  constructor(configService: ConfigService) {
-    this.helloMessage = configService.get('HELLO_MESSAGE');
+  constructor(private surrealDbService: SurrealDbService) {
+    this.helloMessage = surrealDbService.get('HELLO_MESSAGE');
   }
 
   getHello(): string {
     return this.helloMessage;
   }
+
+  postCreate(createDto: CreateDto): any {    
+    return this.surrealDbService.create('person', createDto);
+  }
+
 }

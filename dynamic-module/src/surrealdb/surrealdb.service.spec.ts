@@ -1,19 +1,19 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConfigService } from './config.service';
-import { CONFIG_OPTIONS } from './constants';
+import { SurrealDbService } from './surrealdb.service';
+import { SURREALDB_OPTIONS } from './constants';
 
 jest.mock('dotenv');
 jest.mock('fs');
 
-describe('ConfigService', () => {
-  let service: ConfigService;
+describe('SurrealDbService', () => {
+  let service: SurrealDbService;
 
   beforeEach(async () => {
     const moduleRef: TestingModule = await Test.createTestingModule({
       providers: [
-        ConfigService,
+        SurrealDbService,
         {
-          provide: CONFIG_OPTIONS,
+          provide: SURREALDB_OPTIONS,
           useValue: {
             folder: 'config',
           },
@@ -21,7 +21,7 @@ describe('ConfigService', () => {
       ],
     }).compile();
 
-    service = moduleRef.get<ConfigService>(ConfigService);
+    service = moduleRef.get<SurrealDbService>(SurrealDbService);
   });
 
   it('should be defined', () => {

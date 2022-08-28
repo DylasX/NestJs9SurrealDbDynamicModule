@@ -1,4 +1,6 @@
 // export public api from here
-export * from './config/config.module';
-export * from './config/config.service';
-export * from './config/constants';
+export * from './surrealdb/constants';
+export * from './surrealdb/dto';
+export * from './surrealdb/interfaces';
+export * from './surrealdb/surrealdb.module';
+export * from './surrealdb/surrealdb.service';
