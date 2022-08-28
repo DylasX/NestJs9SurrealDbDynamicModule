@@ -20,10 +20,7 @@ export class AppController {
 
   @Post('/person')
   createPerson(@Body() createPersonDto: CreatePersonDto): any {
-    const person = new PersonModel(createPersonDto);
-    Logger.log(JSON.stringify(person), AppController.name);
-    // return person.props();
-    return person.create();
+    return this.appService.postCreateModel(createPersonDto);
   }
 
 }

@@ -4,7 +4,11 @@ import 'reflect-metadata';
 import { removeEmpty } from '../../common';
 // import { getEnumKeyFromEnumValue, removeEmpty } from '../../common';
 // import { getProperties, Persisted, PersistedUsingInstance, Properties } from '../decorators';
-import { getProperties, Persisted, PersistedUsingInstance, Properties } from '../decorators';
+import { getInstanceModelProps, getProperties, Persisted, PersistedUsingInstance, Properties, Props as ModelPropsProps } from '../decorators';
+import { SurrealDbService } from '../surrealdb.service';
+
+// TODO: 
+const joinSep = ', ';
 
 /**
  * store composed Decorated Properties
@@ -43,7 +47,7 @@ export class BaseModel {
   createdByUserId?: string;
 
   // TODO: add generic, or get rid of any
-  constructor(data: any) {
+  constructor(private readonly db: SurrealDbService, data: any) {
     Object.assign(this, data);
     this.createdDate = new Date().getTime();
     this.createdByUserId = '00000';
@@ -85,7 +89,7 @@ export class BaseModel {
    * @param payloadPropKeys the update payload object keys to use in set / querySetFields / querySetProperties
    */
   getProperties(payloadPropKeys: string[] = []): DecoratedProperties {
-    const showLog = false;
+    const showLog = true;
     const decoratedProperties: DecoratedProperties = {
       queryFields: [],
       queryReturnFields: [],
@@ -99,8 +103,9 @@ export class BaseModel {
     // temp object to save queryRelation object with non empty properties
     const relationObject = {};
     const props = Object.entries(this);
-    props.forEach(e => {
+    props.forEach((e) => {
       const [k, v] = e;
+      // Logger.log(`k: ${k}, v: ${v}`, BaseModel.name);
       // get persisted boolean
       const persisted = PersistedUsingInstance(this, k);
       // if (returnField && k === 'volunteeringHour') {
@@ -109,17 +114,17 @@ export class BaseModel {
       // map property
       if (persisted) {
         // get decorator properties object
-        const props = getProperties(this, k);
-        const fieldName = props && props.fieldName ? props.fieldName : k;
+        const metadataProps = getProperties(this, k);
+        const fieldName = metadataProps && metadataProps.fieldName ? metadataProps.fieldName : k;
         const returnField =
-          props && props.returnField ? props.returnField : null;
+          metadataProps && metadataProps.returnField ? metadataProps.returnField : null;
         // TODO:
         // eslint-disable-next-line @typescript-eslint/ban-types
-        const map: Object[] = props && props.map ? props.map : [];
+        const map: Object[] = metadataProps && metadataProps.map ? metadataProps.map : [];
         // TODO: 
         // eslint-disable-next-line @typescript-eslint/ban-types
         const transform: Function =
-          props && props.transform ? props.transform : null;
+          metadataProps && metadataProps.transform ? metadataProps.transform : null;
         if (transform) {
           this[k] = transform(this[k]);
         }
@@ -185,35 +190,41 @@ export class BaseModel {
     decoratedProperties.querySetFields.push('n.transactionStatus=coalesce(n.transactionStatus,[])+$status[0]');
     decoratedProperties.querySetFields.push('n.transactionEvent=coalesce(n.transactionEvent,[])+$event[0]');
     // compose queryRelationProperties
-    decoratedProperties.queryRelationProperties = decoratedProperties.queryFields.join(',');
-    decoratedProperties.querySetProperties = decoratedProperties.querySetFields.join(',');
+    decoratedProperties.queryRelationProperties = decoratedProperties.queryFields.join(joinSep);
+    decoratedProperties.querySetProperties = decoratedProperties.querySetFields.join(joinSep);
 
     // return final object
-    Logger.log(JSON.stringify(decoratedProperties, undefined, 2), BaseModel.name);
+    // Logger.log(JSON.stringify(decoratedProperties, undefined, 2), BaseModel.name);
     return decoratedProperties;
   }
 
-  public create(): DecoratedProperties {
+  public showProperties(): DecoratedProperties {
     return this.getProperties();
   }
 
   // async save(neo4jService: Neo4jService): Promise<void | QueryResult> {
-  //   // check if transaction is already persisted from other node/peer
-  //   if (await this.checkIfTransactionIsPersisted(neo4jService)) return;
-  //   // init writeTransaction
-  //   const writeTransaction: WriteTransaction[] = new Array<WriteTransaction>();
-  //   const { queryFields, queryReturnFields } = this.getProperties();
-  //   // compose merge
-  //   const cypher = `
-  //     MERGE 
-  //       (n:${this.constructor.name} { ${queryFields} })
-  //     RETURN 
-  //       ${queryReturnFields}
-  //   `;
-  //   writeTransaction.push({ cypher, params: this });
-  //   this.linkToGenesis(writeTransaction);
-  //   const txResult = await neo4jService.writeTransaction(writeTransaction);
-  // }
+  async create(): Promise<void | string> {
+    // // check if transaction is already persisted from other node/peer
+    // if (await this.checkIfTransactionIsPersisted(neo4jService)) return;
+    // // init writeTransaction
+    // const writeTransaction: WriteTransaction[] = new Array<WriteTransaction>();
+    const { queryFields, queryReturnFields } = this.getProperties();
+    // compose merge
+    const cypher = `
+MERGE 
+  (n:${this.constructor.name} { ${queryFields.join(joinSep)} })
+RETURN 
+  ${queryReturnFields}
+`.trim();
+
+    const {tableName}: ModelPropsProps = getInstanceModelProps(this);
+    const sql = `CREATE ${tableName} CONTENT { name: 'Red', meta_data: { field: 'value' } };`;
+
+    // writeTransaction.push({ cypher, params: this });
+    // this.linkToGenesis(writeTransaction);
+    // const txResult = await neo4jService.writeTransaction(writeTransaction);
+    return cypher;
+  }
 
   // /**
   //  * update
