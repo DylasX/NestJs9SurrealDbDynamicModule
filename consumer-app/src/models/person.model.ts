@@ -8,6 +8,7 @@ export interface Person {
     last: string;
   };
   marketing: boolean;
+  age: number;
 }
 
 @ModelProps({ tableName: 'person' })
@@ -31,4 +32,8 @@ export class PersonModel extends BaseModel implements Person {
   @Persisted
   // @Properties({ map: [{ id: 'participantId' }] })
   marketing: boolean;
+
+  @Persisted
+  // @Properties({ map: [{ id: 'participantId' }] })
+  age: number;
 }

@@ -35,8 +35,18 @@ export class SurrealDbService {
     return this.envConfig[key];
   }
 
+  async use(namespace?: string, database?: string): Promise<any> {
+    return this.db.use(namespace || this.options.namespace, database || this.options.database);
+  }
+
   // TODO: use generic here, ex pass type, or model from client
   async create(thing: string, data: any): Promise<any> {
     return this.db.create(thing, data);
   }
+
+  // TODO: use generic here, ex pass type, or model from client
+  async query(sql: string, vars?: any): Promise<any> {
+    return this.db.query(sql, vars);
+  }
+
 }

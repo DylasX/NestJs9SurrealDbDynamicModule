@@ -23,8 +23,8 @@ export class AppService {
     const person = new PersonModel(this.surrealDbService, createPersonDto);
     // Logger.log(JSON.stringify(person), AppService.name);
     // return person.props();
-    return person.showProperties();
+    // return person.showProperties();
     // return { message: await person.save() };
-    // return person.create();
+    return person.create();
   }
 }

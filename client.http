@@ -41,5 +41,6 @@ Content-Type: application/json
     "first": "Tobie",
     "last": "Morgan Hitchcock"
   },
-  "marketing": true
+  "marketing": true,
+  "age": 28
 }

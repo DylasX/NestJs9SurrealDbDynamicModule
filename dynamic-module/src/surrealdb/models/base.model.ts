@@ -8,7 +8,7 @@ import { getInstanceModelProps, getProperties, Persisted, PersistedUsingInstance
 import { SurrealDbService } from '../surrealdb.service';
 
 // TODO: 
-const joinSep = ', ';
+const joinSep = ',';
 
 /**
  * store composed Decorated Properties
@@ -33,11 +33,13 @@ export class BaseModel {
   public id: string;
 
   @Persisted
-  @Properties({ transform: value => JSON.stringify(value) })
+  // don't need to transform
+  // @Properties({ transform: value => JSON.stringify(value) })
   metaData: any;
 
   @Persisted
-  @Properties({ transform: value => JSON.stringify(value) })
+  // don't need to transform
+  // @Properties({ transform: value => JSON.stringify(value) })
   metaDataInternal: any;
 
   @Persisted
@@ -51,8 +53,8 @@ export class BaseModel {
     Object.assign(this, data);
     this.createdDate = new Date().getTime();
     this.createdByUserId = '00000';
-    this.metaData = null;
-    this.metaDataInternal = {};
+    this.metaData = { message: 'hi' };
+    this.metaDataInternal = null;
   }
 
   /**
@@ -60,6 +62,26 @@ export class BaseModel {
    */
   props() {
     return removeEmpty(this);
+  }
+
+  getFieldValue(value: any): any {
+    const type = typeof value;
+    let fieldValue;
+    switch (type) {
+      case 'object':
+        fieldValue = JSON.stringify(value);
+        break;
+      case 'string':
+        fieldValue = `"${value}"`;
+        break;
+      case 'boolean':
+      case 'number':
+        fieldValue = value;
+        break;
+      default:
+        break;
+    }
+    return fieldValue;
   }
 
   // /**
@@ -89,7 +111,7 @@ export class BaseModel {
    * @param payloadPropKeys the update payload object keys to use in set / querySetFields / querySetProperties
    */
   getProperties(payloadPropKeys: string[] = []): DecoratedProperties {
-    const showLog = true;
+    const showLog = false;
     const decoratedProperties: DecoratedProperties = {
       queryFields: [],
       queryReturnFields: [],
@@ -151,8 +173,12 @@ export class BaseModel {
               );
               // push if exists in payloadPropKeys array, or payloadPropKeys is empty (add all)
               if (payloadPropKeys.length === 0 || payloadPropKeys.indexOf(fieldName) > -1) {
+                // TODO: CREATE function to get Value must work with string, number, null, etc, get from NEW PROP decorator TYPE
+                const fieldValue = this.getFieldValue(this[k][sourceProp]);
                 decoratedProperties.querySetFields.push(
-                  `n.${targetProp}=$${k}.${sourceProp}`,
+                  // TODO: neo4j n.name=$name"
+                  // `n.${targetProp}=$${k}.${sourceProp}`,
+                  `"${targetProp}":${fieldValue}`,
                 );
               }
               // decoratedProperties.queryRelationProperties.push(`${targetProp}: $${k}.${sourceProp}`);
@@ -165,7 +191,14 @@ export class BaseModel {
             if (!skipPushQuerySetFields.includes(k)) {
               // push if exists in payloadPropKeys array, or payloadPropKeys is empty (add all)
               if (payloadPropKeys.length === 0 || payloadPropKeys.indexOf(fieldName) > -1) {
-                decoratedProperties.querySetFields.push(`n.${fieldName}=$${k}`);
+                // TODO: CREATE function to get Value must work with string, number, null, etc, get from NEW PROP decorator TYPE
+                const fieldValue = this.getFieldValue(this[k]);
+                decoratedProperties.querySetFields.push(
+                  // TODO: neo4j n.name=$name"
+                  // `n.${fieldName}=$${k}`
+                  `"${fieldName}":${fieldValue}`,
+                );
+
               }
             }
             // decoratedProperties.queryRelationProperties.push(`${fieldName}: $${k}`);
@@ -185,10 +218,11 @@ export class BaseModel {
     // add transaction props
     // The coalesce goes through the comma separated list (inside the brackets) from left to right and skips the 
     // variables that are Null values. So in this case if n.* is initially Null the coalesce would take the second parameter which is the empty array.
-    decoratedProperties.querySetFields.push('n.blockNumber=coalesce(n.blockNumber,[])+$blockNumber[0]');
-    decoratedProperties.querySetFields.push('n.transactionId=coalesce(n.transactionId,[])+$transactionId[0]');
-    decoratedProperties.querySetFields.push('n.transactionStatus=coalesce(n.transactionStatus,[])+$status[0]');
-    decoratedProperties.querySetFields.push('n.transactionEvent=coalesce(n.transactionEvent,[])+$event[0]');
+    // TODO: 
+    // decoratedProperties.querySetFields.push('n.blockNumber=coalesce(n.blockNumber,[])+$blockNumber[0]');
+    // decoratedProperties.querySetFields.push('n.transactionId=coalesce(n.transactionId,[])+$transactionId[0]');
+    // decoratedProperties.querySetFields.push('n.transactionStatus=coalesce(n.transactionStatus,[])+$status[0]');
+    // decoratedProperties.querySetFields.push('n.transactionEvent=coalesce(n.transactionEvent,[])+$event[0]');
     // compose queryRelationProperties
     decoratedProperties.queryRelationProperties = decoratedProperties.queryFields.join(joinSep);
     decoratedProperties.querySetProperties = decoratedProperties.querySetFields.join(joinSep);
@@ -208,7 +242,7 @@ export class BaseModel {
     // if (await this.checkIfTransactionIsPersisted(neo4jService)) return;
     // // init writeTransaction
     // const writeTransaction: WriteTransaction[] = new Array<WriteTransaction>();
-    const { queryFields, queryReturnFields } = this.getProperties();
+    const { queryFields, queryReturnFields, querySetFields } = this.getProperties();
     // compose merge
     const cypher = `
 MERGE 
@@ -217,13 +251,16 @@ RETURN
   ${queryReturnFields}
 `.trim();
 
-    const {tableName}: ModelPropsProps = getInstanceModelProps(this);
-    const sql = `CREATE ${tableName} CONTENT { name: 'Red', meta_data: { field: 'value' } };`;
+    const { tableName }: ModelPropsProps = getInstanceModelProps(this);
+    const sql = `CREATE ${tableName} CONTENT {${querySetFields.join(joinSep)}};`;
+    Logger.log(sql, BaseModel.name);
 
     // writeTransaction.push({ cypher, params: this });
     // this.linkToGenesis(writeTransaction);
     // const txResult = await neo4jService.writeTransaction(writeTransaction);
-    return cypher;
+
+    this.db.use();
+    return this.db.query(sql);
   }
 
   // /**
