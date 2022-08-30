@@ -1,4 +1,5 @@
 import { Persisted, Properties, BaseModel, SurrealDbService, ModelProps } from '@koakh/nestjs-surrealdb-driver';
+import { IsNotEmpty, IsString, IsBoolean } from 'class-validator';
 
 export interface Person {
   id?: string;
@@ -17,11 +18,13 @@ export class PersonModel extends BaseModel implements Person {
     super(db, data)
   }
 
+  @IsString()
   @Persisted
   // @Properties({ fieldName: 'identifier', map: [{ id: 'participantId' }], transform: value => JSON.stringify(value) })
   // @Properties({ returnField: true, map: [{ id: 'participantId' }] })
   title: string;
 
+  @IsNotEmpty()
   @Persisted
   @Properties({ returnField: true })
   name: {
@@ -29,6 +32,7 @@ export class PersonModel extends BaseModel implements Person {
     last: string;
   };
 
+  @IsBoolean()
   @Persisted
   // @Properties({ map: [{ id: 'participantId' }] })
   marketing: boolean;

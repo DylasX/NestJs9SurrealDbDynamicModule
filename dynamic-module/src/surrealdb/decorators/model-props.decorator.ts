@@ -1,7 +1,3 @@
-// TODO: add to notes
-// link and file contents
-// https://stackoverflow.com/a/62471619
-
 export const nameKey = Symbol('ModelProps');
 export interface Props { tableName: string };
 

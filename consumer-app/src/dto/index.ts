@@ -1,3 +1,1 @@
-import { Person } from "src/models";
-
-export type CreatePersonDto = Person;
+export * from './create-person.dto';

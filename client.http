@@ -3,6 +3,8 @@
 @uri = http://{{host}}:{{port}}
 @contentType = application/json
 
+@thing = person:uv1o55sjes0tdpa3oool
+
 ### getHello
 // @name getHello
 
@@ -11,22 +13,49 @@ Content-Type: application/json
 
 ### postCreate
 // @name postCreate
+// creates anything
 
-POST {{uri}}
+POST {{uri}}/person
 Content-Type: application/json
 
 {
-  "thing": "person",
-  "data": {
-    "identifier": "00001",
-    "title": "Founder & CEO",
-    "name": {
-      "first": "Tobie",
-      "last": "Morgan Hitchcock"
-    },
-    "marketing": true
-  }
+  "identifier": "00001",
+  "title": "Founder & CEO",
+  "name": {
+    "first": "Tobie",
+    "last": "Morgan Hitchcock"
+  },
+  "marketing": true
 }
+
+### getSelect
+// @name getSelect
+
+GET {{uri}}/{{thing}}
+Content-Type: application/json
+
+### patchChange
+// @name patchChange
+// patches anything
+
+PATCH {{uri}}/{{thing}}
+Content-Type: application/json
+
+{
+  "name": {
+    "first": "Mário CHANGED",
+    "last": "Monteiro"
+  },
+  "age": 14
+}
+
+### deleteDelete
+// @name deleteDelete
+
+DELETE {{uri}}/{{thing}}
+Content-Type: application/json
+
+### model
 
 ### postCreateModel
 // @name postCreateModel
@@ -42,5 +71,13 @@ Content-Type: application/json
     "last": "Morgan Hitchcock"
   },
   "marketing": true,
-  "age": 28
+  "age": 28,
+  "metaData": { "data": "tobie" },
+  "metaDataInternal": { "data": "tobie internal" }
 }
+
+### getSelectModel
+// @name getSelectModel
+
+GET {{uri}}/person/{{thing}}
+Content-Type: application/json

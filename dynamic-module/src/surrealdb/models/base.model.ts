@@ -5,6 +5,7 @@ import { removeEmpty } from '../../common';
 // import { getEnumKeyFromEnumValue, removeEmpty } from '../../common';
 // import { getProperties, Persisted, PersistedUsingInstance, Properties } from '../decorators';
 import { getInstanceModelProps, getProperties, Persisted, PersistedUsingInstance, Properties, Props as ModelPropsProps } from '../decorators';
+import { SurrealDbResponseDto } from '../dto/surrealdb-response.dto';
 import { SurrealDbService } from '../surrealdb.service';
 
 // TODO: 
@@ -27,7 +28,7 @@ export type DecoratedProperties = {
 };
 
 export class BaseModel {
-  public type: string;
+  // public type: string;
 
   @Persisted
   public id: string;
@@ -51,10 +52,20 @@ export class BaseModel {
   // TODO: add generic, or get rid of any
   constructor(private readonly db: SurrealDbService, data: any) {
     Object.assign(this, data);
-    this.createdDate = new Date().getTime();
-    this.createdByUserId = '00000';
-    this.metaData = { message: 'hi' };
-    this.metaDataInternal = null;
+    this.createdDate = data.createdDate || new Date().getTime();
+    this.createdByUserId = data.createdByUserId || '00000';
+    this.metaData = data.metaData || {};
+    this.metaDataInternal = this.metaDataInternal || {};
+  }
+
+  /**
+   * converts object instance to model, removing some non model props
+   * @returns 
+   */
+  // TODO: return the generic T like Person
+  toJSON() {
+    // remove non model properties like db
+    return { ...this, db: undefined };
   }
 
   /**
@@ -64,6 +75,11 @@ export class BaseModel {
     return removeEmpty(this);
   }
 
+  /**
+   * get field value to use on queryBuilder
+   * @param value 
+   * @returns 
+   */
   getFieldValue(value: any): any {
     const type = typeof value;
     let fieldValue;
@@ -237,31 +253,27 @@ export class BaseModel {
   }
 
   // async save(neo4jService: Neo4jService): Promise<void | QueryResult> {
-  async create(): Promise<void | string> {
-    // // check if transaction is already persisted from other node/peer
-    // if (await this.checkIfTransactionIsPersisted(neo4jService)) return;
-    // // init writeTransaction
-    // const writeTransaction: WriteTransaction[] = new Array<WriteTransaction>();
-    const { queryFields, queryReturnFields, querySetFields } = this.getProperties();
-    // compose merge
-    const cypher = `
-MERGE 
-  (n:${this.constructor.name} { ${queryFields.join(joinSep)} })
-RETURN 
-  ${queryReturnFields}
-`.trim();
-
+  async create(showQuery = false): Promise<SurrealDbResponseDto> {
     const { tableName }: ModelPropsProps = getInstanceModelProps(this);
+    const { querySetFields } = this.getProperties();
     const sql = `CREATE ${tableName} CONTENT {${querySetFields.join(joinSep)}};`;
-    Logger.log(sql, BaseModel.name);
+    if (showQuery) { Logger.log(sql, BaseModel.name); }
+    const response: SurrealDbResponseDto = await this.db.query(sql);
 
-    // writeTransaction.push({ cypher, params: this });
-    // this.linkToGenesis(writeTransaction);
-    // const txResult = await neo4jService.writeTransaction(writeTransaction);
-
-    this.db.use();
-    return this.db.query(sql);
+    // test create model from response
+    return response;
   }
+
+  // async select(thing: string, showQuery = false): Promise<any> {
+  //   // const { tableName }: ModelPropsProps = getInstanceModelProps(this);
+  //   const { queryReturnFields } = this.getProperties();
+  //   const sql = `SELECT ${queryReturnFields} FROM ${thing};`;
+  //   if (showQuery) { Logger.log(sql, BaseModel.name); }
+  //   const response: SurrealDbResponseDto = await this.db.select(sql);
+
+  //   // test create model from response
+  //   return response;
+  // }
 
   // /**
   //  * update
