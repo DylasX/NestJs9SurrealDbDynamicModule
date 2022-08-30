@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as Surreal from 'surrealdb.js';
 import { SURREALDB_OPTIONS } from './constants';
+import { SurrealDbResponseDto } from './dto/surrealdb-response.dto';
 import { EnvConfig, SurrealDbOptions } from './interfaces';
 import { SurrealDb } from './interfaces/surrealdb.interface';
 
@@ -39,14 +40,53 @@ export class SurrealDbService {
     return this.db.use(namespace || this.options.namespace, database || this.options.database);
   }
 
-  // TODO: use generic here, ex pass type, or model from client
+  /**
+   * surrealdb create proxy method
+   * @param thing tableName
+   * @param data arbitrary data
+   * @returns 
+   */
   async create(thing: string, data: any): Promise<any> {
     return this.db.create(thing, data);
   }
 
-  // TODO: use generic here, ex pass type, or model from client
-  async query(sql: string, vars?: any): Promise<any> {
+  /**
+   * surrealdb query proxy method
+   * @param sql some query
+   * // TODO: use vars
+   * @param vars pass vars to query
+   * @returns 
+   */
+  async query(sql: string, vars?: any): Promise<SurrealDbResponseDto> {
     return this.db.query(sql, vars);
+  }
+
+  /**
+   * surrealdb create proxy method
+   * @param thing tableName
+   * @param data arbitrary data
+   * @returns 
+   */
+  async select(thing: string): Promise<SurrealDbResponseDto> {
+    return this.db.select(thing);
+  }
+
+  /**
+   * surrealdb delete proxy method
+   * @param data arbitrary data
+   * @returns 
+   */
+  async change(thing: string, data: any): Promise<SurrealDbResponseDto> {
+    return this.db.change(thing, data);
+  }
+
+  /**
+ * surrealdb delete proxy method
+ * @param data arbitrary data
+ * @returns 
+ */
+  async delete(thing: string): Promise<SurrealDbResponseDto> {
+    return this.db.delete(thing);
   }
 
 }
