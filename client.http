@@ -15,17 +15,17 @@ Content-Type: application/json
 // @name postCreate
 // creates anything
 
-POST {{uri}}/person
+POST {{uri}}/{{thing}}
 Content-Type: application/json
 
 {
-  "identifier": "00001",
   "title": "Founder & CEO",
   "name": {
     "first": "Tobie",
     "last": "Morgan Hitchcock"
   },
-  "marketing": true
+  "marketing": true,
+  "age": 28
 }
 
 ### getSelect
