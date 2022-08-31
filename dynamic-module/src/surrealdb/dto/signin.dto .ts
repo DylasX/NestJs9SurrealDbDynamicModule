@@ -9,13 +9,13 @@ export declare class SigninDto {
 
   @IsOptional()
   @IsString()
-  ns?: string;
+  NS?: string;
 
   @IsOptional()
   @IsString()
-  db?: string;
+  DB?: string;
 
   @IsOptional()
   @IsString()
-  sc?: string;
+  SC?: string;
 }
