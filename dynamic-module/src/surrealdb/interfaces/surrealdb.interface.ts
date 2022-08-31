@@ -78,7 +78,7 @@ export interface SurrealDb {
    * @param thing The table name or the specific record id to create.
    * @param vars Assigns variables which can be used in the query.
    */
-  query: (sql: string, vars: any) => any;
+  query: (sql: string, vars?: any) => any;
 
   /**
    * selects all records in a table, or a specific record

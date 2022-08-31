@@ -1,4 +1,4 @@
-import { Signin, Signup, CreateDto, ChangeDto, SelectDto, SurrealDbService } from '@koakh/nestjs-surrealdb-driver';
+import { SignupDto, SigninDto, Signin, Signup, CreateDto, ChangeDto, SelectDto, SurrealDbService } from '@koakh/nestjs-surrealdb-driver';
 import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb-driver/dist/surrealdb/dto/surrealdb-response.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreatePersonDto } from './dto';
@@ -97,7 +97,7 @@ export class AppService {
   }
 
   // TODO: add to controller
-  async postQuery(sql: string, vars: any): Promise<any> {
+  async postQuery(sql: string, vars?: any): Promise<SurrealDbResponseDto> {
     try {
       return await this.db.query(sql, vars);
     } catch (error) {
@@ -113,9 +113,9 @@ export class AppService {
     }
   }
 
-  async postCreate(thing: string, createDto: CreateDto): Promise<any> {
+  async postCreate(createDto: CreateDto): Promise<any> {
     try {
-      return await this.db.create(thing, createDto);
+      return await this.db.create((createDto as any).id, { ...createDto, id: undefined });
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }

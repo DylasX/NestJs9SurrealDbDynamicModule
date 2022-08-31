@@ -3,7 +3,7 @@
 @uri = http://{{host}}:{{port}}
 @contentType = application/json
 
-@thing = person:uv1o55sjes0tdpa3oool
+@thing = person:uv1o55sjes0tdpa31ool
 
 ### getHello
 // @name getHello
@@ -11,14 +11,140 @@
 GET {{uri}}
 Content-Type: application/json
 
+### postConnect
+// @name postConnect
+
+POST {{uri}}/connect
+Content-Type: application/json
+
+{
+  "url": "http://127.0.0.1:8000/rpc"
+}
+
+### postClose
+// @name postClose
+
+POST {{uri}}/close
+Content-Type: application/json
+
+{
+}
+
+### postUse
+// @name postUse
+
+POST {{uri}}/use
+Content-Type: application/json
+
+{
+  "ns": "test",
+  "db": "test"
+}
+
+
+### postUse
+// @name postUse
+
+POST {{uri}}/use
+Content-Type: application/json
+
+{
+  "ns": "test",
+  "db": "test"
+}
+
+### postSignup
+// @name postSignup
+
+POST {{uri}}/signup
+Content-Type: application/json
+
+{
+  // TODO: use lower case
+	// "NS": "test",
+	// "DB": "test",
+	// "SC": "user",
+	"email": "info@surrealdb.com",
+	"pass": "123456"
+}
+
+### postSignin
+// @name postSignin
+
+POST {{uri}}/signin
+Content-Type: application/json
+
+{
+  // TODO: use lower case
+	// "NS": "test",
+	// "DB": "test",
+	// "SC": "user",
+  "email": "tobie@surrealdb.com",
+  "pass": "secretpass"
+}
+
+### postInvalidate
+// @name postInvalidate
+
+POST {{uri}}/invalidate
+Content-Type: application/json
+
+{
+}
+
+### postAuthenticate
+// @name postAuthenticate
+
+POST {{uri}}/authenticate
+Content-Type: application/json
+
+{
+  "token": "some token"
+}
+
+### postLet
+// @name postLet
+
+POST {{uri}}/let
+Content-Type: application/json
+
+{
+  "key": "name",
+  "value": {
+    "name": {
+      "first": "Tobie",
+      "last": "Morgan Hitchcock"
+    }
+  }
+}
+
+### postQuery
+// @name postQuery
+
+POST {{uri}}/query
+Content-Type: application/json
+
+{
+  "sql": "SELECT * FROM $id;",
+  "vars": {
+    "id": "{{thing}}"
+  }
+}
+
+
+
+
+
+
 ### postCreate
 // @name postCreate
 // creates anything
 
-POST {{uri}}/{{thing}}
+POST {{uri}}
 Content-Type: application/json
 
 {
+  "id": "{{thing}}",
   "title": "Founder & CEO",
   "name": {
     "first": "Tobie",

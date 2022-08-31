@@ -6,4 +6,11 @@ SurrealDb Library:
   ping is used internally. It doesn't need to be called from any client code. It isn't quite a WebSocket ping message, but it serves the same purpose. Basically it is used as a timeout buster (some loadbalancers will kill a WebSocket even if the ping<-pong messages are sent, if there is no actual data sent over the WebSocket connection). The ping method is run periodically internally, to send a high-level message over the connection. It can be called from external code, but wouldn't need to be...
   info is useful yes. It basically runs SELECT * FROM $auth which should return the user id, or the user record for the authenticated user.
   sync, live, and kill aren't fully implemented yet, so you can add those in, but don't expect them to work just yet!
-  
+
+  ☐ auth
+    Tobie — Hoje às 00:15
+    You can use any variable you want @koakh ...
+    Take a look at these messages:
+    https://discord.com/channels/902568124350599239/970338835990974484/1012100125864247317
+    https://discord.com/channels/902568124350599239/970338835990974484/1012100138036105313
+  ☐ sugestion method to retrieve let key value, to check that var is created
