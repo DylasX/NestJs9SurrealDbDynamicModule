@@ -130,7 +130,6 @@ export class AppService {
     }
   }
 
-  // TODO: use it ? put, patch ?
   async patchChange(thing: string, data: ChangeDto): Promise<any> {
     try {
       await this.thingExists(thing);

@@ -1,4 +1,6 @@
 SurrealDb Library:
+  ☐ signin and signout
+  ☐ todos
   ☐ add typescript types
   ☐ get response types
   ☐ remove all try catch from app.service and use global one
@@ -14,3 +16,7 @@ SurrealDb Library:
     https://discord.com/channels/902568124350599239/970338835990974484/1012100125864247317
     https://discord.com/channels/902568124350599239/970338835990974484/1012100138036105313
   ☐ sugestion method to retrieve let key value, to check that var is created
+
+Questions:
+  ☐ is any endpoint to use SurrealQL INFO, get info from TABLE etc
+  ☐ info, Invalid params, whats is the params to use?

@@ -1,6 +1,6 @@
-import { QueryDto, LetDto, AuthenticateDto, SigninDto, SignupDto, UseDto, CreateDto, ChangeDto, ConnectDto, SelectDto } from '@koakh/nestjs-surrealdb-driver';
+import { SyncDto, QueryDto, LetDto, AuthenticateDto, SigninDto, SignupDto, UseDto, CreateDto, ChangeDto, ConnectDto, SelectDto } from '@koakh/nestjs-surrealdb-driver';
 import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb-driver/dist/surrealdb/dto/surrealdb-response.dto';
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreatePersonDto } from './dto';
 
@@ -60,17 +60,26 @@ export class AppController {
     return this.appService.postQuery(sql, vars);
   }
 
-
-
+  @Get('/:thing')
+  select(@Param('thing') thing: string): any {
+    return this.appService.getSelect(thing);
+  }
 
   @Post()
   create(@Body() createDto: CreateDto): any {
     return this.appService.postCreate(createDto);
   }
 
-  @Get('/:thing')
-  select(@Param('thing') thing: string): any {
-    return this.appService.getSelect(thing);
+  @Put('/:thing')
+  // TODO: change createDto to updateDto
+  update(@Param('thing') thing: string, @Body() createDto: CreateDto): any {
+    return this.appService.putUpdate(thing, createDto);
+  }
+
+  @Patch('/modify/:thing')
+  // TODO: change createDto to modifyDto
+  modify(@Param('thing') thing: string, @Body() createDto: CreateDto): any {
+    return this.appService.patchChange(thing, createDto);
   }
 
   @Patch('/:thing')
@@ -83,13 +92,37 @@ export class AppController {
     return this.appService.deleteDelete(thing);
   }
 
+  @Post('/sync')
+  sync(@Body() {query, vars}: SyncDto): any {
+    return this.appService.postSync(query, vars);
+  }
+
+  @Post('/ping')
+  ping(): any {
+    return this.appService.postPing();
+  }
+
+  @Post('/info')
+  info(): any {
+    return this.appService.postInfo();
+  }
+
+  @Post('/live')
+  live(@Param('table') table: string): any {
+    return this.appService.postLive(table);
+  }
+
+  @Post('/kill')
+  kill(@Param('query') query: string): any {
+    return this.appService.postLive(query);
+  }
+
   // model
 
   @Post('/person')
   createPerson(@Body() createPersonDto: CreatePersonDto): any {
     return this.appService.postCreateModel(createPersonDto);
   }
-
 
   @Get('/person/:thing')
   selectModelByThing(@Param('thing') thing: string): any {

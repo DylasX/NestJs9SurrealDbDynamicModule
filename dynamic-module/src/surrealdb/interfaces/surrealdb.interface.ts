@@ -121,15 +121,17 @@ export interface SurrealDb {
    */
   delete: (thing: string) => any;
 
+  // sync, live, and kill aren't fully implemented yet, so you can add those in, but don't expect them to work just yet!
+
   /**
-   * non documented public methods
+   * sync
    * @param query
    * @param vars
    */
   sync: (query: string, vars: any) => any;
 
   /**
-   * ping
+   * ping: ping is used internally. It doesn't need to be called from any client code
    */
   ping: () => any;
 
@@ -139,13 +141,13 @@ export interface SurrealDb {
   info: () => any;
 
   /**
-   * live
+   * live query
    * @param table
    */
   live: (table: string) => any;
 
   /**
-   * kill
+   * kill live query
    * @param query
    */
   kill: (query: string) => any;

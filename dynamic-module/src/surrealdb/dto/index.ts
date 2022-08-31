@@ -9,3 +9,4 @@ export * from './update.dto';
 export * from './use.dto';
 export * from './let.dto';
 export * from './query.dto';
+export * from './sync.dto';

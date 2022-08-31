@@ -125,20 +125,20 @@ POST {{uri}}/query
 Content-Type: application/json
 
 {
-  "sql": "SELECT * FROM $id;",
+  "sql": "SELECT id, string::concat(name.first, ' ', name.last) AS name, age FROM $id;",
   "vars": {
     "id": "{{thing}}"
   }
 }
 
+### getSelect
+// @name getSelect
 
-
-
-
+GET {{uri}}/{{thing}}
+Content-Type: application/json
 
 ### postCreate
 // @name postCreate
-// creates anything
 
 POST {{uri}}
 Content-Type: application/json
@@ -154,25 +154,47 @@ Content-Type: application/json
   "age": 28
 }
 
-### getSelect
-// @name getSelect
+### putUpdate
+// @name putUpdate
+// replace current record with payload data
 
-GET {{uri}}/{{thing}}
+PUT {{uri}}/{{thing}}
 Content-Type: application/json
+
+{
+  "name": {
+    "first": "Mário",
+    "last": "Monteiro"
+  },
+  "age": 50,
+  "country": "Portugal"
+}
 
 ### patchChange
 // @name patchChange
-// patches anything
+// patches thing, update only sent properties leaving all others untoutched
 
 PATCH {{uri}}/{{thing}}
 Content-Type: application/json
 
 {
   "name": {
-    "first": "Mário CHANGED",
-    "last": "Monteiro"
-  },
-  "age": 14
+    "first": "Tobie changed...",
+    "last": "Morgan Hitchcock changed..."
+  }
+}
+
+### patchModify
+// @name patchModify
+// modify replaces properties of record
+
+PATCH {{uri}}/modify/{{thing}}
+Content-Type: application/json
+
+{
+  "name": {
+    "fullName": "Tobie Morgan Hitchcock"
+  }
 }
 
 ### deleteDelete
@@ -180,6 +202,60 @@ Content-Type: application/json
 
 DELETE {{uri}}/{{thing}}
 Content-Type: application/json
+
+### postSync
+// @name postSync
+// TODO: sync, live, and kill aren't fully implemented yet
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+  "query": "SELECT id, string::concat(name.first, ' ', name.last) AS name, age FROM $id;",
+  "vars": {
+    "id": "{{thing}}"
+  }
+}
+
+### postPing
+// @name postPing
+// ping is used internally. It doesn't need to be called from any client code
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+}
+
+### postInfo
+// @name postInfo
+// TODO: Invalid params, whats is the params
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+}
+
+### postLive
+// @name postLive
+// TODO: sync, live, and kill aren't fully implemented yet
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+}
+
+### postKill
+// @name postKill
+// TODO: sync, live, and kill aren't fully implemented yet
+
+POST {{uri}}
+Content-Type: application/json
+
+{
+}
 
 ### model
 
