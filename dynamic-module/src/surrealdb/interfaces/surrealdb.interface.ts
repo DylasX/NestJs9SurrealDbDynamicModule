@@ -2,19 +2,17 @@
 // https://github.com/surrealdb/www.surrealdb.com/blob/main/app/templates/docs/integration/libraries/nodejs.hbs
 
 export interface Signup {
-  NS?: string;
-  DB?: string;
-  SC?: string;
-  // TODO: tobie
+  ns?: string;
+  db?: string;
+  sc?: string;
   email: string;
   pass: string;
 }
 
 export interface Signin {
-  NS?: string;
-  DB?: string;
-  SC?: string;
-  // TODO: tobie
+  ns?: string;
+  db?: string;
+  sc?: string;
   user: string;
   pass: string;
 }
