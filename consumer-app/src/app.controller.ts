@@ -1,4 +1,4 @@
-import { SyncDto, QueryDto, LetDto, AuthenticateDto, SigninDto, SignupDto, UseDto, CreateDto, ChangeDto, ConnectDto, SelectDto } from '@koakh/nestjs-surrealdb-driver';
+import { AuthenticateDto, ChangeDto, ConnectDto, CreateDto, LetDto, ModifyDto, QueryDto, SigninDto, SignupDto, SyncDto, UpdateDto, UseDto } from '@koakh/nestjs-surrealdb-driver';
 import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb-driver/dist/surrealdb/dto/surrealdb-response.dto';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { AppService } from './app.service';
@@ -71,15 +71,13 @@ export class AppController {
   }
 
   @Put('/:thing')
-  // TODO: change createDto to updateDto
-  update(@Param('thing') thing: string, @Body() createDto: CreateDto): any {
-    return this.appService.putUpdate(thing, createDto);
+  update(@Param('thing') thing: string, @Body() updateDto: UpdateDto): any {
+    return this.appService.putUpdate(thing, updateDto);
   }
 
   @Patch('/modify/:thing')
-  // TODO: change createDto to modifyDto
-  modify(@Param('thing') thing: string, @Body() createDto: CreateDto): any {
-    return this.appService.patchChange(thing, createDto);
+  modify(@Param('thing') thing: string, @Body() modifyDto: ModifyDto): any {
+    return this.appService.patchChange(thing, modifyDto);
   }
 
   @Patch('/:thing')
@@ -117,7 +115,7 @@ export class AppController {
     return this.appService.postLive(query);
   }
 
-  // model
+  // TODO: WIP model
 
   @Post('/person')
   createPerson(@Body() createPersonDto: CreatePersonDto): any {

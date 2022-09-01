@@ -15,7 +15,6 @@ export declare class SigninDto {
   @IsString()
   db?: string;
 
-  @IsOptional()
   @IsString()
   sc?: string;
 }

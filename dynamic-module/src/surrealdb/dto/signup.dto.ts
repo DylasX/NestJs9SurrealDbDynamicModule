@@ -9,13 +9,12 @@ export declare class SignupDto {
 
   @IsOptional()
   @IsString()
-  NS?: string;
+  ns?: string;
 
   @IsOptional()
   @IsString()
-  DB?: string;
+  db?: string;
 
-  @IsOptional()
   @IsString()
-  SC?: string;
+  sc?: string;
 }
