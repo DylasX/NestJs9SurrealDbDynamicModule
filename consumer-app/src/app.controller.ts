@@ -112,7 +112,7 @@ export class AppController {
 
   @Post('/kill')
   kill(@Param('query') query: string): any {
-    return this.appService.postLive(query);
+    return this.appService.postKill(query);
   }
 
   // TODO: WIP model

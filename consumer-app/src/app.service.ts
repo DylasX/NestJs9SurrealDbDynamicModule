@@ -26,175 +26,91 @@ export class AppService {
 
   // TODO: add to controller
   async postConnect(url: string): Promise<any> {
-    try {
-      return await this.db.connect(url);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.connect(url);
   }
 
   // TODO: add to controller
   async postClose(): Promise<any> {
-    try {
-      return await this.db.close();
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.close();
   }
 
   // TODO: add to controller
   async postUse(ns: string, db: string): Promise<any> {
-    try {
-      return await this.db.use(ns, db);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.use(ns, db);
   }
 
   // TODO: add to controller
   async postSignup(vars: Signup): Promise<any> {
-    try {
-      return await this.db.signup(vars);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.signup(vars);
   }
 
   // TODO: add to controller
   async postSignin(vars: Signin): Promise<any> {
-    try {
-      return await this.db.signin(vars);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.signin(vars);
   }
 
   // TODO: add to controller
   async postInvalidate(): Promise<any> {
-    try {
-      return await this.db.invalidate();
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.invalidate();
   }
 
   // TODO: add to controller
   async postAuthenticate(token: string): Promise<any> {
-    try {
-      return await this.db.authenticate(token);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.authenticate(token);
   }
 
   // TODO: add to controller
   async postLet(key: string, val: any): Promise<any> {
-    try {
-      return await this.db.let(key, val);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.let(key, val);
   }
 
   // TODO: add to controller
   async postQuery(sql: string, vars?: any): Promise<SurrealDbResponseDto> {
-    try {
-      return await this.db.query(sql, vars);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.query(sql, vars);
   }
 
   async getSelect(thing: string): Promise<any> {
-    try {
-      return await this.db.select(thing);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.select(thing);
   }
 
   async postCreate(createDto: CreateDto): Promise<any> {
-    try {
-      return await this.db.create((createDto as any).id, { ...createDto, id: undefined });
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.create((createDto as any).id, { ...createDto, id: undefined });
   }
 
   async putUpdate(thing: string, data: ChangeDto): Promise<any> {
-    try {
-      await this.thingExists(thing);
-      return await this.db.update(thing, data);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.thingExists(thing);
   }
 
   async patchChange(thing: string, data: ChangeDto): Promise<any> {
-    try {
-      await this.thingExists(thing);
-      return await this.db.change(thing, data);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.thingExists(thing);
   }
 
   async patchModify(thing: string, data: ChangeDto): Promise<any> {
-    try {
-      await this.thingExists(thing);
-      return await this.db.modify(thing, data);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.thingExists(thing);
   }
 
   async deleteDelete(thing: string): Promise<any> {
-    try {
-      await this.thingExists(thing);
-      return await this.db.delete(thing);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.thingExists(thing);
   }
 
   async postSync(query: string, vars: any): Promise<any> {
-    try {
-      return await this.db.sync(query, vars);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.sync(query, vars);
   }
 
   async postPing(): Promise<any> {
-    try {
-      return await this.db.ping();
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.ping();
   }
 
   async postInfo(): Promise<any> {
-    try {
-      return await this.db.info();
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.info();
   }
 
   async postLive(table: string): Promise<any> {
-    try {
-      return await this.db.live(table);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.live(table);
   }
 
   async postKill(query: string): Promise<any> {
-    try {
-      return await this.db.live(query);
-    } catch (error) {
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
-    }
+    return await this.db.live(query);
   }
 
   // orm/model mode

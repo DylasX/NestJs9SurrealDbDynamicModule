@@ -1,9 +1,10 @@
 @host = localhost
 @port = 3000
-@uri = http://{{host}}:{{port}}
+@uri = http://{{host}}:{{port}}/v1
 @contentType = application/json
 
 @thing = person:uv1o55sjes0tdpa31ool
+@token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjIwNzU2MjksIm5iZiI6MTY2MjA3NTYyOSwiZXhwIjoxNjYzMjg1MjI5LCJpc3MiOiJTdXJyZWFsREIiLCJucyI6InRlc3QiLCJkYiI6InRlc3QiLCJzYyI6ImFsbHVzZXJzIiwiaWQiOiJ1c2VyOmhqeTBlYXIwa2VyczZtNXVoZjByIn0.7IwUtZtXshV-XuTERxaFhG-qpFkcsgwvXe6rW_lRQTg2RHwAz3hroVvlEeLDVumPloVa09sjepv_co0QunJD2w
 
 ### getHello
 // @name getHello
@@ -95,7 +96,7 @@ POST {{uri}}/authenticate
 Content-Type: application/json
 
 {
-  "token": "some token"
+  "token": "{{token}}"
 }
 
 ### postLet
