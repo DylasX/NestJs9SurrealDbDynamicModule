@@ -1,5 +1,5 @@
-import { AuthenticateDto, ChangeDto, ConnectDto, CreateDto, LetDto, ModifyDto, QueryDto, SigninDto, SignupDto, SyncDto, UpdateDto, UseDto } from '@koakh/nestjs-surrealdb-driver';
-import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb-driver/dist/surrealdb/dto/surrealdb-response.dto';
+import { AuthenticateDto, ChangeDto, ConnectDto, CreateDto, LetDto, ModifyDto, QueryDto, SigninDto, SignupDto, SyncDto, UpdateDto, UseDto } from '@koakh/nestjs-surrealdb';
+import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb/dist/surrealdb/dto/surrealdb-response.dto';
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreatePersonDto } from './dto';
@@ -9,7 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
-  getHello(): { message: string } {
+  async getHello(): Promise<{ message: string }> {
     return this.appService.getHello();
   }
 
@@ -91,7 +91,7 @@ export class AppController {
   }
 
   @Post('/sync')
-  sync(@Body() {query, vars}: SyncDto): any {
+  sync(@Body() { query, vars }: SyncDto): any {
     return this.appService.postSync(query, vars);
   }
 
@@ -117,14 +117,14 @@ export class AppController {
 
   // TODO: WIP model
 
-  @Post('/person')
-  createPerson(@Body() createPersonDto: CreatePersonDto): any {
-    return this.appService.postCreateModel(createPersonDto);
-  }
+  // @Post('/person')
+  // createPerson(@Body() createPersonDto: CreatePersonDto): any {
+  //   return this.appService.postCreateModel(createPersonDto);
+  // }
 
-  @Get('/person/:thing')
-  selectModelByThing(@Param('thing') thing: string): any {
-    return this.appService.getSelectModelByThing(thing);
-  }
+  // @Get('/person/:thing')
+  // selectModelByThing(@Param('thing') thing: string): any {
+  //   return this.appService.getSelectModelByThing(thing);
+  // }
 
 }

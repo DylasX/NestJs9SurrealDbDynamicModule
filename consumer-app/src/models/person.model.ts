@@ -1,4 +1,4 @@
-import { Persisted, Properties, BaseModel, SurrealDbService, ModelProps } from '@koakh/nestjs-surrealdb-driver';
+import { Persisted, Properties, BaseModel, SurrealDbService, ModelProps } from '@koakh/nestjs-surrealdb';
 import { IsNotEmpty, IsString, IsBoolean } from 'class-validator';
 
 export interface Person {

@@ -9,15 +9,16 @@
   - [Init surrealDb](#init-surrealdb)
   - [Run App](#run-app)
   - [Launch some Queries](#launch-some-queries)
+- [debug inter container communication](#debug-inter-container-communication)
 
 ## Project Components
 
 ### Dynamic Module
 
-the main `@koakh/nestjs-surrealdb-driver`, that is just a simple wrapper on top of [surrealdb.js integration](https://surrealdb.com/docs/integration/libraries/nodejs), check git [repo](https://github.com/surrealdb/surrealdb.js) here, and don't forget to **fire some stars** everywhere, this "dreamers" deserve it
+the main `@koakh/nestjs-surrealdb`, that is just a simple wrapper on top of [surrealdb.js integration](https://surrealdb.com/docs/integration/libraries/nodejs), check git [repo](https://github.com/surrealdb/surrealdb.js) here, and don't forget to **fire some stars** everywhere, this "dreamers" deserve it
 ### Consumer App
 
-this is a simply [nestjs](https://nestjs.com/) app to showcase `@koakh/nestjs-surrealdb-driver`
+this is a simply [nestjs](https://nestjs.com/) app to showcase `@koakh/nestjs-surrealdb`
 
 ## Install SurrealDb
 
@@ -98,3 +99,18 @@ $ npm start
 install [Rest Client Extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 open [client.http](client.http) and start fire some requests
+
+
+docker-compose build
+docker-compose up
+
+docker-compose up -d
+
+# debug inter container communication
+docker exec -it consumer-app sh
+wget surrealdb:8000
+
+
+
+list of orderer curls
+

@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  consumer-app:
+    hostname: consumer-app;
+    container_name: consumer-app
+    restart: unless-stopped
+    build:
+      context: ./consumer-app
+      dockerfile: Dockerfile
+    depends_on:
+      - surrealdb
+    ports:
+      - 3000:3000
+
+  surrealdb:
+    hostname: surrealdb;
+    container_name: consumer-app-db
+    image: surrealdb/surrealdb:1.0.0-beta.7
+    command: "start --user root --pass root file:mydb"
+    environment:
+      SURREAL_ROOT_USER: root
+      SURREAL_ROOT_PASS: root
+    # uncomment to expose surrealdb port
+    # ports:
+    #   - 8000:8000

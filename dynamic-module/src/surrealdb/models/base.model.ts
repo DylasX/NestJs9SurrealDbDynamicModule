@@ -1,14 +1,13 @@
-// import { Logger } from '@nestjs/common';
 import { Logger } from '@nestjs/common';
 import 'reflect-metadata';
 import { removeEmpty } from '../../common';
-// import { getEnumKeyFromEnumValue, removeEmpty } from '../../common';
-// import { getProperties, Persisted, PersistedUsingInstance, Properties } from '../decorators';
-import { getInstanceModelProps, getProperties, Persisted, PersistedUsingInstance, Properties, Props as ModelPropsProps } from '../decorators';
+import { getInstanceModelProps, getProperties, Persisted, PersistedUsingInstance, Props as ModelPropsProps } from '../decorators';
 import { SurrealDbResponseDto } from '../dto/surrealdb-response.dto';
 import { SurrealDbService } from '../surrealdb.service';
+// import { Logger } from '@nestjs/common';
+// import { getEnumKeyFromEnumValue, removeEmpty } from '../../common';
+// import { getProperties, Persisted, PersistedUsingInstance, Properties } from '../decorators';
 
-// TODO: 
 const joinSep = ',';
 
 /**

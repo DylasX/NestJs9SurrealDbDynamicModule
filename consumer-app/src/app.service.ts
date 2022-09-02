@@ -1,6 +1,6 @@
-import { SignupDto, SigninDto, Signin, Signup, CreateDto, ChangeDto, SelectDto, SurrealDbService } from '@koakh/nestjs-surrealdb-driver';
-import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb-driver/dist/surrealdb/dto/surrealdb-response.dto';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ChangeDto, CreateDto, Signin, Signup, SurrealDbService } from '@koakh/nestjs-surrealdb';
+import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb/dist/surrealdb/dto/surrealdb-response.dto';
+import { Injectable } from '@nestjs/common';
 import { CreatePersonDto } from './dto';
 import { Person, PersonModel } from './models';
 
@@ -12,8 +12,7 @@ export class AppService {
     this.helloMessage = db.get('HELLO_MESSAGE');
   }
 
-  // TODO: remove
-  getHello(): { message: string } {
+  async getHello(): Promise<{ message: string; }> {
     return { message: this.helloMessage };
   }
 
@@ -24,57 +23,56 @@ export class AppService {
     }
   }
 
-  // TODO: add to controller
   async postConnect(url: string): Promise<any> {
-    return await this.db.connect(url);
+    return this.db.connect(url);
   }
 
   // TODO: add to controller
   async postClose(): Promise<any> {
-    return await this.db.close();
+    return this.db.close();
   }
 
   // TODO: add to controller
   async postUse(ns: string, db: string): Promise<any> {
-    return await this.db.use(ns, db);
+    return this.db.use(ns, db);
   }
 
   // TODO: add to controller
   async postSignup(vars: Signup): Promise<any> {
-    return await this.db.signup(vars);
+    return this.db.signup(vars);
   }
 
   // TODO: add to controller
   async postSignin(vars: Signin): Promise<any> {
-    return await this.db.signin(vars);
+    return this.db.signin(vars);
   }
 
   // TODO: add to controller
   async postInvalidate(): Promise<any> {
-    return await this.db.invalidate();
+    return this.db.invalidate();
   }
 
   // TODO: add to controller
   async postAuthenticate(token: string): Promise<any> {
-    return await this.db.authenticate(token);
+    return this.db.authenticate(token);
   }
 
   // TODO: add to controller
   async postLet(key: string, val: any): Promise<any> {
-    return await this.db.let(key, val);
+    return this.db.let(key, val);
   }
 
   // TODO: add to controller
   async postQuery(sql: string, vars?: any): Promise<SurrealDbResponseDto> {
-    return await this.db.query(sql, vars);
+    return this.db.query(sql, vars);
   }
 
   async getSelect(thing: string): Promise<any> {
-    return await this.db.select(thing);
+    return this.db.select(thing);
   }
 
   async postCreate(createDto: CreateDto): Promise<any> {
-    return await this.db.create((createDto as any).id, { ...createDto, id: undefined });
+    return this.db.create((createDto as any).id, { ...createDto, id: undefined });
   }
 
   async putUpdate(thing: string, data: ChangeDto): Promise<any> {
@@ -94,23 +92,23 @@ export class AppService {
   }
 
   async postSync(query: string, vars: any): Promise<any> {
-    return await this.db.sync(query, vars);
+    return this.db.sync(query, vars);
   }
 
   async postPing(): Promise<any> {
-    return await this.db.ping();
+    return this.db.ping();
   }
 
   async postInfo(): Promise<any> {
-    return await this.db.info();
+    return this.db.info();
   }
 
   async postLive(table: string): Promise<any> {
-    return await this.db.live(table);
+    return this.db.live(table);
   }
 
   async postKill(query: string): Promise<any> {
-    return await this.db.live(query);
+    return this.db.live(query);
   }
 
   // orm/model mode
