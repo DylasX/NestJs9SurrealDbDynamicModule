@@ -4,6 +4,7 @@
 @contentType = application/json
 
 @thing = person:uv1o55sjes0tdpa31ool
+@thingTobie = person:tobie
 @token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NjIwNzU2MjksIm5iZiI6MTY2MjA3NTYyOSwiZXhwIjoxNjYzMjg1MjI5LCJpc3MiOiJTdXJyZWFsREIiLCJucyI6InRlc3QiLCJkYiI6InRlc3QiLCJzYyI6ImFsbHVzZXJzIiwiaWQiOiJ1c2VyOmhqeTBlYXIwa2VyczZtNXVoZjByIn0.7IwUtZtXshV-XuTERxaFhG-qpFkcsgwvXe6rW_lRQTg2RHwAz3hroVvlEeLDVumPloVa09sjepv_co0QunJD2w
 
 ### getHello

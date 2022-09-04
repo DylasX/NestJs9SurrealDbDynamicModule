@@ -17,10 +17,11 @@ services:
     hostname: surrealdb;
     container_name: consumer-app-db
     image: surrealdb/surrealdb:1.0.0-beta.7
-    command: "start --user root --pass root file:mydb"
+    # file:mydb
+    command: "start --user root --pass root"
     environment:
       SURREAL_ROOT_USER: root
       SURREAL_ROOT_PASS: root
     # uncomment to expose surrealdb port
-    # ports:
-    #   - 8000:8000
+    ports:
+      - 8000:8000
