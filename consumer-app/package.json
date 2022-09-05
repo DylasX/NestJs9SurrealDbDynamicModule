@@ -18,9 +18,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "echo 'No e2e tests implemented yet.'"
   },
-  "--// @koakh/nestjs-surrealdb": "file:../dynamic-module",
+  "--1// @koakh/nestjs-surrealdb": "file:../dynamic-module",
+  "--2// @koakh/nestjs-surrealdb": "^0.1.0",
   "dependencies": {
-    "@koakh/nestjs-surrealdb": "^0.1.0",
+    "@koakh/nestjs-surrealdb": "file:../dynamic-module",
     "@nestjs/common": "9.0.1",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "9.0.1",

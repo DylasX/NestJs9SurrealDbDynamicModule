@@ -1,9 +1,9 @@
-s-- implicit full access for new signup users
-DEFINE TABLE person SCHEMAFULL PERMISSIONS
-  FOR select FULL,
-  FOR create FULL,
-  FOR update FULL,
-  FOR delete FULL;
+-- implicit full access for new signup users
+-- DEFINE TABLE person SCHEMAFULL PERMISSIONS
+--   FOR select FULL,
+--   FOR create FULL,
+--   FOR update FULL,
+--   FOR delete FULL;
 
 DEFINE TABLE user SCHEMAFULL
   PERMISSIONS 

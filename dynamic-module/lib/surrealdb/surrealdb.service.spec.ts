@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SurrealDbService } from './surrealdb.service';
-import { SURREALDB_OPTIONS } from './constants';
+import { SURREALDB_CONFIG_OPTIONS } from './constants';
 
 jest.mock('dotenv');
 jest.mock('fs');
@@ -13,7 +13,7 @@ describe('SurrealDbService', () => {
       providers: [
         SurrealDbService,
         {
-          provide: SURREALDB_OPTIONS,
+          provide: SURREALDB_CONFIG_OPTIONS,
           useValue: {
             folder: 'config',
           },

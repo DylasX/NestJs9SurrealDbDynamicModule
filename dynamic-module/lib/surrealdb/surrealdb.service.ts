@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Surreal from 'surrealdb.js';
-import { SURREALDB_OPTIONS } from './constants';
+import { SURREALDB_CONFIG_OPTIONS } from './constants';
 import { SurrealDbResponseDto } from './dto/surrealdb-response.dto';
 import { EnvConfig, SurrealDbOptions } from './interfaces';
 import { Signin, Signup, SurrealDb } from './interfaces/surrealdb.interface';
@@ -13,7 +13,7 @@ export class SurrealDbService {
   private readonly envConfig: EnvConfig;
   private db: SurrealDb;
 
-  constructor(@Inject(SURREALDB_OPTIONS) private options: SurrealDbOptions) {
+  constructor(@Inject(SURREALDB_CONFIG_OPTIONS) private options: SurrealDbOptions) {
     const filePath = `${process.env.NODE_ENV || 'development'}.env`;
     const envFile = path.resolve(__dirname, options.configPath, filePath);
     this.envConfig = dotenv.parse(fs.readFileSync(envFile));

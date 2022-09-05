@@ -10,6 +10,11 @@
 ### getHello
 // @name getHello
 
+GET {{uri}}
+Content-Type: application/json
+
+### init surrealDb database
+
 ### postInitDb
 // @name postInitDb
 
@@ -21,9 +26,6 @@ Content-Type: application/json
 }
 
 ### surrealDb proxy methods
-
-GET {{uri}}
-Content-Type: application/json
 
 ### postConnect
 // @name postConnect
@@ -135,10 +137,11 @@ POST {{uri}}/query
 Content-Type: application/json
 
 {
-  "sql": "SELECT id, string::concat(name.first, ' ', name.last) AS name, age FROM $id;",
-  "vars": {
-    "id": "{{thing}}"
-  }
+  // "sql": "SELECT id, string::concat(name.first, ' ', name.last) AS name, age FROM $id;",
+  // "vars": {
+  //   "id": "{{thing}}"
+  // }
+  "sql": "SELECT * FROM $auth"
 }
 
 ### getSelect
@@ -217,21 +220,17 @@ Content-Type: application/json
 // @name postSync
 // TODO: sync, live, and kill aren't fully implemented yet
 
-POST {{uri}}
+POST {{uri}}/sync
 Content-Type: application/json
 
 {
-  "query": "SELECT id, string::concat(name.first, ' ', name.last) AS name, age FROM $id;",
-  "vars": {
-    "id": "{{thing}}"
-  }
 }
 
 ### postPing
 // @name postPing
 // ping is used internally. It doesn't need to be called from any client code
 
-POST {{uri}}
+POST {{uri}}/ping
 Content-Type: application/json
 
 {
@@ -239,9 +238,8 @@ Content-Type: application/json
 
 ### postInfo
 // @name postInfo
-// TODO: Invalid params, whats is the params
 
-POST {{uri}}
+POST {{uri}}/info
 Content-Type: application/json
 
 {
@@ -251,7 +249,7 @@ Content-Type: application/json
 // @name postLive
 // TODO: sync, live, and kill aren't fully implemented yet
 
-POST {{uri}}
+POST {{uri}}/live
 Content-Type: application/json
 
 {
@@ -261,7 +259,7 @@ Content-Type: application/json
 // @name postKill
 // TODO: sync, live, and kill aren't fully implemented yet
 
-POST {{uri}}
+POST {{uri}}/kill
 Content-Type: application/json
 
 {

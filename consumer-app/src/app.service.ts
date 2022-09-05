@@ -1,4 +1,4 @@
-import { ChangeDto, CreateDto, Signin, Signup, SurrealDbService } from '@koakh/nestjs-surrealdb';
+import { ChangeDto, CreateDto, ModifyDto, Signin, Signup, SurrealDbService } from '@koakh/nestjs-surrealdb';
 import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb/dist/surrealdb/dto/surrealdb-response.dto';
 import { Injectable } from '@nestjs/common';
 import { CreatePersonDto } from './dto';
@@ -27,42 +27,34 @@ export class AppService {
     return this.db.connect(url);
   }
 
-  // TODO: add to controller
   async postClose(): Promise<any> {
     return this.db.close();
   }
 
-  // TODO: add to controller
   async postUse(ns: string, db: string): Promise<any> {
     return this.db.use(ns, db);
   }
 
-  // TODO: add to controller
   async postSignup(vars: Signup): Promise<any> {
     return this.db.signup(vars);
   }
 
-  // TODO: add to controller
   async postSignin(vars: Signin): Promise<any> {
     return this.db.signin(vars);
   }
 
-  // TODO: add to controller
   async postInvalidate(): Promise<any> {
     return this.db.invalidate();
   }
 
-  // TODO: add to controller
   async postAuthenticate(token: string): Promise<any> {
     return this.db.authenticate(token);
   }
 
-  // TODO: add to controller
   async postLet(key: string, val: any): Promise<any> {
     return this.db.let(key, val);
   }
 
-  // TODO: add to controller
   async postQuery(sql: string, vars?: any): Promise<SurrealDbResponseDto> {
     return this.db.query(sql, vars);
   }
@@ -76,19 +68,23 @@ export class AppService {
   }
 
   async putUpdate(thing: string, data: ChangeDto): Promise<any> {
-    return await this.thingExists(thing);
+    await this.thingExists(thing);
+    return this.db.update(thing, data);
   }
 
   async patchChange(thing: string, data: ChangeDto): Promise<any> {
-    return await this.thingExists(thing);
+    await this.thingExists(thing);
+    return this.db.change(thing, data);
   }
 
-  async patchModify(thing: string, data: ChangeDto): Promise<any> {
-    return await this.thingExists(thing);
+  async patchModify(thing: string, data: ModifyDto): Promise<any> {
+    await this.thingExists(thing);
+    return this.db.modify(thing, data);
   }
 
   async deleteDelete(thing: string): Promise<any> {
-    return await this.thingExists(thing);
+    await this.thingExists(thing);
+    return this.db.delete(thing);
   }
 
   async postSync(query: string, vars: any): Promise<any> {
@@ -108,7 +104,7 @@ export class AppService {
   }
 
   async postKill(query: string): Promise<any> {
-    return this.db.live(query);
+    return this.db.kill(query);
   }
 
   // orm/model mode
