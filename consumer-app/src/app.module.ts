@@ -1,16 +1,13 @@
-import { SurrealDbModule, SurrealDbService, SURREALDB_CONFIG_OPTIONS } from '@koakh/nestjs-surrealdb';
+import { SurrealDbModule } from '@koakh/nestjs-surrealdb';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    // TODO: use ConfigService
     // SurrealDbModule.register({
-    //   // url: 'http://surrealdb:8000/rpc',
     //   url: 'http://127.0.0.1:8000/rpc',
     //   namespace: 'test',
     //   database: 'test',
