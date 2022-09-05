@@ -2,18 +2,6 @@
 
 project started from nestjs sample `25-dynamic-modules`
 
-## Required to be a node package
-
-`dynamic-module/package.json`
-
-```json
-  "main": "dist/index.js",
-  "files": [
-    "dist/**/*",
-    "*.md"
-  ],
-```
-
 ## TLDR
 
 ```shell
@@ -27,6 +15,42 @@ $ npm run build
 $ cd consumer-app
 $ npm run start:debug
 # or launch debug
+```
+
+## Required to be a node package
+
+`dynamic-module/package.json`
+
+```json
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*",
+    "*.md"
+  ],
+```
+
+## Change src to lib
+
+`dynamic-module/tsconfig.json`
+
+change "include": `["src/**/*"]` to `"include": ["lib/**/*"]`
+
+`dynamic-module/tsconfig.build.json`
+
+add `"include": ["lib/**/*"],`
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "include": ["lib/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+}
+```
+
+build to assert everything is working
+
+```shell
+$ npm run build
 ```
 
 ## Debug ConsumerApp Config
