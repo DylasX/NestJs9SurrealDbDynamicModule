@@ -109,21 +109,21 @@ export class AppService {
 
   // orm/model mode
 
-  async postCreateModel(createPersonDto: CreatePersonDto): Promise<SurrealDbResponseDto> {
-    const person = new PersonModel(this.db, createPersonDto);
-    // TODO: clean some tests or create some endpoints for it
-    // Logger.log(JSON.stringify(person), AppService.name);
-    // return person.props();
-    // return person.showProperties();
-    // return { message: await person.save() };
-    return person.create(true);
-  }
+  // async postCreateModel(createPersonDto: CreatePersonDto): Promise<SurrealDbResponseDto> {
+  //   const person = new PersonModel(this.db, createPersonDto);
+  //   // TODO: clean some tests or create some endpoints for it
+  //   // Logger.log(JSON.stringify(person), AppService.name);
+  //   // return person.props();
+  //   // return person.showProperties();
+  //   // return { message: await person.save() };
+  //   return person.create(true);
+  // }
 
-  async getSelectModelByThing(thing: string): Promise<Person> {
-    // this will throw if model not exists, and don't advance to new model
-    const result = await this.getSelect(thing);
-    // return model instance
-    return new PersonModel(this.db, result[0]);
-  }
+  // async getSelectModelByThing(thing: string): Promise<Person> {
+  //   // this will throw if model not exists, and don't advance to new model
+  //   const result = await this.getSelect(thing);
+  //   // return model instance
+  //   return new PersonModel(this.db, result[0]);
+  // }
 
 }

@@ -1,9 +1,10 @@
 -- implicit full access for new signup users
--- DEFINE TABLE person SCHEMAFULL PERMISSIONS
---   FOR select FULL,
---   FOR create FULL,
---   FOR update FULL,
---   FOR delete FULL;
+-- TODO: the only way to work with a signin user is using bellow PERMISSIONS
+DEFINE TABLE person SCHEMALESS PERMISSIONS
+  FOR select, create, update, delete FULL;
+
+-- DEFINE TABLE person SCHEMALESS PERMISSIONS
+--   FOR select, create, update, delete WHERE id = $auth.id;
 
 DEFINE TABLE user SCHEMAFULL
   PERMISSIONS 

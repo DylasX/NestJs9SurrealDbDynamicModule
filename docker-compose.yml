@@ -19,9 +19,9 @@ services:
     image: surrealdb/surrealdb:1.0.0-beta.7
     # file:mydb
     command: "start --user root --pass root"
-    environment:
-      SURREAL_ROOT_USER: root
-      SURREAL_ROOT_PASS: root
+    # environment:
+    #   SURREAL_ROOT_USER: root
+    #   SURREAL_ROOT_PASS: root
     # uncomment to expose surrealdb port
     ports:
       - 8000:8000

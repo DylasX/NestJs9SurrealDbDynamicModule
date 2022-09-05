@@ -1,6 +1,6 @@
 {
   "name": "@koakh/nestjs-surrealdb",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SurrealDb proxy driver for NestJs 9",
   "license": "MIT",
   "main": "dist/index.js",
@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "echo 'No e2e tests implemented yet.'",
-    "npm:publish": "npm publish --access=public"
+    "version:patch": "npm run build && npm version patch",
+    "version:publish": "npm publish --access=public"
   },
   "dependencies": {
     "@nestjs/common": "9.0.1",
