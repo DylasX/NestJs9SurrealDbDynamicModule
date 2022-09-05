@@ -6,7 +6,7 @@
     - [Consumer App](#consumer-app)
   - [Install SurrealDb](#install-surrealdb)
   - [Starts SurrealDb](#starts-surrealdb)
-  - [Init surrealDb](#init-surrealdb)
+  - [Init surrealDb Database](#init-surrealdb-database)
   - [Run App from Source Code](#run-app-from-source-code)
     - [Launch some Queries](#launch-some-queries)
   - [Run App with Docker Compose](#run-app-with-docker-compose)
@@ -34,8 +34,10 @@ this is a simply [nestjs application](https://nestjs.com/) to showcase `@koakh/n
 ```shell
 # start with in memory
 $ surreal start --user root --pass root
+
 # or start with rocksdb (persisted on disk)
 $ surreal start --user root --pass root file:mydb
+
 # outcome
  .d8888b.                                             888 8888888b.  888888b.
 d88P  Y88b                                            888 888  'Y88b 888  '88b
@@ -56,7 +58,7 @@ Y88b  d88P Y88b 888 888     888     Y8b.     888  888 888 888  .d88P 888   d88P
 [2022-09-05 23:05:47] INFO  surrealdb::net Started web server on 0.0.0.0:8000
 ```
 
-## Init surrealDb
+## Init surrealDb Database
 
 import the `initdb.sql` 
 
@@ -119,7 +121,38 @@ done we have a ready to play surrealdb database ready to use with `signup` and `
 ```shell
 $ cd consumer-app
 $ npm i
-$ npm start
+$ npm run start:debug
+# outcome
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [NestFactory] Starting Nest application...
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [InstanceLoader] ConfigHostModule dependencies initialized +24ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [InstanceLoader] ConfigModule dependencies initialized +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [InstanceLoader] SurrealDbModule dependencies initialized +5ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [InstanceLoader] AppModule dependencies initialized +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RoutesResolver] AppController {/}: +5ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/, GET} route +2ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/connect, POST} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/close, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/use, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/signup, POST} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/signin, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/invalidate, POST} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/authenticate, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/let, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/query, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/:thing, GET} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/, POST} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/:thing, PUT} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/modify/:thing, PATCH} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/:thing, PATCH} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/:thing, DELETE} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/sync, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/ping, POST} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/info, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/live, POST} route +0ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [RouterExplorer] Mapped {/kill, POST} route +1ms
+[Nest] 24577  - 09/05/2022, 11:45:06 PM     LOG [NestApplication] Nest application successfully started +2ms
+Application is running on: http://[::1]:3000
 ```
 
 > note for local package in `"@koakh/nestjs-surrealdb": "file:../dynamic-module"`
