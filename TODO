@@ -1,4 +1,6 @@
-SurrealDb Library:
+SurrealDb Library and Consumer App:
+  ☐ create a nestjs rest/graphql starter from scratch to example how to use nests surrealdb library
+  ☐ @critical readme for library with a start nestjs project and ......
   ☐ readme for @koakh/nestjs-surrealdb ex bootstrap a nestjs project and connect to surrealdb project
   ✔ @critical After signIn can't create record `Error: There was a problem with the database: The table does not exist` @done(22-09-05 23:00)
   ✔ @critical PermissionError: Unable to create record: person:uv1o55sjes0tdpa31ool @done(22-09-05 23:01)
@@ -10,7 +12,7 @@ SurrealDb Library:
   ✔ improve error handling show message `RecordError: Record not found: person:uv1o55sjes0tdpa31ool` @done(22-09-05 22:27)
   ✔ pass env variables to `SurrealDbModule.register({` @done(22-09-05 22:27)
   ☐ get response types
-  ☐ finish readme with all the curls in order
+  ✔ finish readme with all the curls in order @done(22-09-06 00:10)
 Ask Master Tobie:
   ✔ tobie tips about ping, info, sync @done(22-09-05 22:27)
     ping is used internally. It doesn't need to be called from any client code. It isn't quite a WebSocket ping message, but it serves the same purpose. Basically it is used as a timeout buster (some loadbalancers will kill a WebSocket even if the ping<-pong messages are sent, if there is no actual data sent over the WebSocket connection). The ping method is run periodically internally, to send a high-level message over the connection. It can be called from external code, but wouldn't need to be...
