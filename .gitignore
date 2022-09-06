@@ -1,2 +1,5 @@
 .bak/*.tgz
 .solidarychain
+consumer-app/node_modules/
+dynamic-module/node_modules/
+tutorial-graphql/node_modules/
