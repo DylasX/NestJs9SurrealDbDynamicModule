@@ -32,29 +32,53 @@ $ nest new tutorial-graphql
 
 ```shell
 # For Express and Apollo (default)
-$ yarn add @nestjs/graphql @nestjs/apollo @nestjs/config graphql apollo-server-express
+$ yarn add @nestjs/graphql @nestjs/apollo @nestjs/config apollo-server-express graphql graphql-subscriptions graphql-query-complexity @koakh/nestjs-surrealdb
 ```
+
+## CleanUp non used Files
+
+```shell
+# remove rest files
+rm src/app.controller.spec.ts src/app.controller.ts src/app.service.ts
+```
+
+## Add .env File
+
+`.env`
+
+```bash
+GRAPHQL_AUTO_SCHEMA_FILE='./schema.gql'
+```
+## Change AppModule
 
 replace `src/app.module.ts` with
 
 ```ts
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
-  driver: ApolloDriver,
-  imports: [ConfigModule],
-  useFactory: async (configService: ConfigService) => ({
-    typePaths: configService.get<string>('GRAPHQL_TYPE_PATHS'),
-  }),
-  inject: [ConfigService],
-}),
+      driver: ApolloDriver,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        autoSchemaFile: join(
+          process.cwd(),
+          configService.get<string>('GRAPHQL_AUTO_SCHEMA_FILE'),
+        ),
+        installSubscriptionHandlers: true,
+      }),
+    }),
   ],
 })
-
 export class AppModule {}
 ```
 
