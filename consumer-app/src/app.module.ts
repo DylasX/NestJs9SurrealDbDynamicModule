@@ -13,7 +13,6 @@ import { AppService } from './app.service';
     //   database: 'test',
     //   user: 'root',
     //   pass: 'root',
-    //   configPath: `${process.cwd()}/config`
     // })
     SurrealDbModule.registerAsync({
       imports: [ConfigModule],
@@ -24,7 +23,6 @@ import { AppService } from './app.service';
         database:  configService.get('SURREALDB_DATABASE'),
         user:  configService.get('SURREALDB_USER'),
         pass:  configService.get('SURREALDB_PASS'),
-        configPath: `${process.cwd()}/config`      
       }),
     }),
   ],

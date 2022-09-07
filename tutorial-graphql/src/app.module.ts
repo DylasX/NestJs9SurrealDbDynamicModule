@@ -1,4 +1,4 @@
-import { SurrealDbModule } from '@koakh/nestjs-surrealdb';
+import { SurrealDbModule, SurrealDbService, SURREALDB_CONFIG_OPTIONS } from '@koakh/nestjs-surrealdb';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -22,8 +22,6 @@ import { RecipesModule } from './recipes/recipes.module';
         database: configService.get('SURREALDB_DATABASE'),
         user: configService.get('SURREALDB_USER'),
         pass: configService.get('SURREALDB_PASS'),
-        // TODO: remove
-        configPath: `${process.cwd()}/config`,
       }),
     }),
     RecipesModule,
@@ -49,5 +47,7 @@ import { RecipesModule } from './recipes/recipes.module';
       }),
     }),
   ],
+  exports: [SurrealDbModule],
+  providers: [SurrealDbService],
 })
 export class AppModule { }

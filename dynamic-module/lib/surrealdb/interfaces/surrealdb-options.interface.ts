@@ -4,5 +4,4 @@ export interface SurrealDbOptions {
   database: string;
   user: string;
   pass: string;
-  configPath: string;
 }

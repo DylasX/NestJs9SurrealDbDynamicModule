@@ -1,14 +1,12 @@
 import { ChangeDto, CreateDto, ModifyDto, Signin, Signup, SurrealDbService } from '@koakh/nestjs-surrealdb';
 import { SurrealDbResponseDto } from '@koakh/nestjs-surrealdb/dist/surrealdb/dto/surrealdb-response.dto';
 import { Injectable } from '@nestjs/common';
-import { CreatePersonDto } from './dto';
-import { Person, PersonModel } from './models';
 
 @Injectable()
 export class AppService {
   private helloMessage: string;
 
-  constructor(private db: SurrealDbService) {
+  constructor(private readonly db: SurrealDbService) {
     this.helloMessage = db.get('HELLO_MESSAGE');
   }
 
@@ -125,5 +123,4 @@ export class AppService {
   //   // return model instance
   //   return new PersonModel(this.db, result[0]);
   // }
-
 }

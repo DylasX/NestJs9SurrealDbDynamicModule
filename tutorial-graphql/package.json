@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@koakh/nestjs-surrealdb": "^0.1.1",
+    "@koakh/nestjs-surrealdb": "file:../dynamic-module",
     "@nestjs/apollo": "^10.1.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
