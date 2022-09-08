@@ -12,8 +12,8 @@ import { SurrealDbService } from './surrealdb.service';
 // export class SurrealDbModule extends ConfigurableSurrealDbModule {}
 
 @Module({})
-export class SurrealDbModule {
-  static register(options: SurrealDbOptions): DynamicModule {
+export class SurrealDbModule extends ConfigurableSurrealDbModule {
+  static forRoot(options: SurrealDbOptions): DynamicModule {
     return {
       module: SurrealDbModule,
       providers: [
@@ -27,7 +27,7 @@ export class SurrealDbModule {
     };
   }
  
-  static registerAsync(options: SurrealDbAsyncOptions): DynamicModule {
+  static forRootAsync(options: SurrealDbAsyncOptions): DynamicModule {
     return {
       module: SurrealDbModule,
       imports: options.imports,

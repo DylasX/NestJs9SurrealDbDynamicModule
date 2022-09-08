@@ -9,10 +9,11 @@ import { Recipe } from './models/recipe.model';
 export class RecipesService {
   constructor(
     // private readonly db: SurrealDbService,
-    private readonly configService: ConfigService,
-  ) {}
+    // private readonly configService: ConfigService,
+  ) { }
 
   async create(data: NewRecipeInput): Promise<Recipe> {
+    // const thing = this.db.select('person:uv1o55sjes0tdpa31ool');
     return {
       ...data,
       id: new Date().getTime().toString(),

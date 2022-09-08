@@ -14,7 +14,7 @@ import { AppService } from './app.service';
     //   user: 'root',
     //   pass: 'root',
     // })
-    SurrealDbModule.registerAsync({
+    SurrealDbModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({

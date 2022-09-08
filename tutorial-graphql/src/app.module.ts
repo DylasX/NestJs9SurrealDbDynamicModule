@@ -15,7 +15,7 @@ import { RecipesModule } from './recipes/recipes.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    SurrealDbModule.registerAsync({
+    SurrealDbModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
