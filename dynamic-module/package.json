@@ -23,8 +23,6 @@
     "version:publish": "npm publish --access=public"
   },
   "dependencies": {
-    "@nestjs/common": "9.0.1",
-    "@nestjs/core": "9.0.1",
     "class-validator": "^0.13.2",
     "dotenv": "16.0.1",
     "reflect-metadata": "^0.1.13",
@@ -33,6 +31,8 @@
     "surrealdb.js": "^0.3.1"
   },
   "devDependencies": {
+    "@nestjs/common": "9.0.1",
+    "@nestjs/core": "9.0.1",
     "@nestjs/cli": "9.0.0",
     "@nestjs/schematics": "9.0.1",
     "@nestjs/testing": "9.0.1",
@@ -55,6 +55,10 @@
     "ts-node": "10.8.2",
     "tsconfig-paths": "4.0.0",
     "typescript": "4.7.4"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "9.0.1",
+    "@nestjs/core": "9.0.1"
   },
   "jest": {
     "moduleFileExtensions": [

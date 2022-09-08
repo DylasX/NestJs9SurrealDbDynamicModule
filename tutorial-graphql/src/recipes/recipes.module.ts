@@ -7,6 +7,7 @@ import { RecipesService } from './recipes.service';
 
 @Module({
   imports: [
+    // SurrealDbModule
     SurrealDbModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
