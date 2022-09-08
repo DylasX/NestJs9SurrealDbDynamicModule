@@ -8,7 +8,7 @@ import { Recipe } from './models/recipe.model';
 @Injectable()
 export class RecipesService {
   constructor(
-    private readonly db: SurrealDbService,
+    // private readonly db: SurrealDbService,
     private readonly configService: ConfigService,
   ) {}
 

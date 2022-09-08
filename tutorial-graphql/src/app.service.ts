@@ -5,7 +5,8 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   constructor(private readonly db: SurrealDbService) {}
 
-  getHello(): string {
-    return 'Hello World!';
+  async getSelect(thing: string): Promise<any> {
+    return this.db.select(thing);
   }
+
 }

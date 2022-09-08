@@ -8,11 +8,6 @@ import { CreatePersonDto } from './dto';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get()
-  async getHello(): Promise<{ message: string }> {
-    return this.appService.getHello();
-  }
-
   // raw surrealdb
 
   @Post('/connect')

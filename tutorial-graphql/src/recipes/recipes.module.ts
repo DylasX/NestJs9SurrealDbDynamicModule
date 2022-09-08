@@ -5,8 +5,9 @@ import { RecipesResolver } from './recipes.resolver';
 import { RecipesService } from './recipes.service';
 
 @Module({
-  imports: [SurrealDbModule],
-  providers: [RecipesResolver, RecipesService, DateScalar, SurrealDbService],
+  // imports: [SurrealDbModule],
+  // TODO: fuck trick is using provider SurrealDbModule ?????? WTF
+  providers: [RecipesResolver, RecipesService, DateScalar, SurrealDbModule],
   // exports: [SurrealDbService],
 })
 export class RecipesModule { }

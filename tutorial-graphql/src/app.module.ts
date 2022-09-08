@@ -1,10 +1,12 @@
-import { SurrealDbModule, SurrealDbService, SURREALDB_CONFIG_OPTIONS } from '@koakh/nestjs-surrealdb';
+import { SurrealDbModule } from '@koakh/nestjs-surrealdb';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { join } from 'path';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { upperDirectiveTransformer } from './common/directives/upper-case.directive';
 import { RecipesModule } from './recipes/recipes.module';
 
@@ -47,7 +49,7 @@ import { RecipesModule } from './recipes/recipes.module';
       }),
     }),
   ],
-  exports: [SurrealDbModule],
-  providers: [SurrealDbService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule { }
