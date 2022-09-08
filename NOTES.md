@@ -2,6 +2,8 @@
 
 project started from nestjs sample `25-dynamic-modules`
 
+UPDATE: above make me lost 2 nights now step back and use the old school ways with <https://github.com/koakh/NestJsPlayWithDynamicModulesWithAppAndAppLib.git> repo
+
 ## TLDR
 
 ```shell
