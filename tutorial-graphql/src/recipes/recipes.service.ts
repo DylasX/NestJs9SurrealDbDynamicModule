@@ -9,14 +9,15 @@ import { Recipe } from './models/recipe.model';
 @Injectable()
 export class RecipesService {
   constructor(
-    private readonly db: SurrealDbService,
+    // private readonly db: SurrealDbService,
     private readonly configService: ConfigService,
   ) { 
-    const thing = this.db.select('person:uv1o55sjes0tdpa31ool');    
-    Logger.log(thing, RecipesService.name);
+    Logger.log(this.configService.get('SURREALDB_URL'), RecipesService.name);
   }
 
-  async create(data: NewRecipeInput): Promise<Recipe> {    
+  async create(data: NewRecipeInput): Promise<Recipe> {
+    // const thing = this.db.select('person:uv1o55sjes0tdpa31ool');    
+    // Logger.log(thing, RecipesService.name);    
     return {
       ...data,
       id: new Date().getTime().toString(),

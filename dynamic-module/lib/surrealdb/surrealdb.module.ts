@@ -1,4 +1,4 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { DynamicModule, Global, Module } from '@nestjs/common';
 import { SURREALDB_CONFIG_OPTIONS } from './constants';
 import { SurrealDbOptions } from './interfaces';
 import { ConfigurableSurrealDbModule } from './surrealdb.module-definition';
@@ -18,8 +18,10 @@ export class SurrealDbModule extends ConfigurableSurrealDbModule {
       module: SurrealDbModule,
       providers: [
         {
-          provide: SURREALDB_CONFIG_OPTIONS,
-          useValue: options,
+          // provide: SURREALDB_CONFIG_OPTIONS,
+          // useValue: options,
+          provide: SurrealDbService,
+          useValue: new SurrealDbService(options),
         },
         SurrealDbService,
       ],
@@ -33,7 +35,8 @@ export class SurrealDbModule extends ConfigurableSurrealDbModule {
       imports: options.imports,
       providers: [
         {
-          provide: SURREALDB_CONFIG_OPTIONS,
+          // provide: SURREALDB_CONFIG_OPTIONS,
+          provide: SurrealDbService,
           useFactory: options.useFactory,
           inject: options.inject,
         },

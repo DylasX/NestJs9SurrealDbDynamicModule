@@ -23,9 +23,9 @@
   "dependencies": {
     "@koakh/nestjs-surrealdb": "file:../dynamic-module",
     "@nestjs/apollo": "^10.1.0",
-    "@nestjs/common": "^9.0.0",
+    "@nestjs/common": "9.0.1",
+    "@nestjs/core": "9.0.1",
     "@nestjs/config": "^2.2.0",
-    "@nestjs/core": "^9.0.0",
     "@nestjs/graphql": "^10.1.1",
     "@nestjs/platform-express": "^9.0.0",
     "apollo-server-express": "^3.10.2",
